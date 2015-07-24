@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title> 广告延迟加载 支持 百度 Google 淘宝 等广告</title>
+<script type="text/javascript" src="async.write.js" ></script>
+</head>
+<body>
+
+<div id="google">google</div>
+<div id="baidu">baidu</div>
+<br/>
+<br/>
+<div id="ad">
+请在下面输入 任意 html js 代码<br/>
+2013-04-14 开始写广告延迟加载代码<br/>
+2013-11-13 更新直接执行html js<br/>
+2013-11-14 更新 js 执行方法 jquery 低于 1.7.1 也能执行js<br/>
+2015-07-24 更新 js 执行方法 不再依赖jquery库  主意  var xxx 如果不是一次性执行的 不能声明  var 比如百度广告里面的 var cpro_id = 00000 需要 替换成   cpro_id ＝ 00000<br/>
+</div>
+<br/>
+<br/>
+<br/>
+<br/>
+<h2>自定义广告代码</h2>
+<textarea id="custom" cols="130" rows="10"></textarea>
+<br/>
+<input type="submit" id="submit" onclick="testWrite()">
+
+
+
+<script type="text/javascript">
+
+//var scriptElement = document.createElement('script');
+//scriptElement.innerText = './qq.js';
+//document.querySelector('div').appendChild(scriptElement);
+
+
+/*
+document.querySelector('#google').setWrite('<scr'+'ipt type="text/javascript"><!-- \
+	google_ad_client = "pub-3381531532877742";\
+	google_ad_slot = "7423315034";\
+	google_ad_width = 728;\
+	google_ad_height = 90;\
+	//-->\
+	</scr'+'ipt>' + '<scr'+'ipt type="text/javascript"src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></scr'+'ipt>');
+
+
+document.querySelector('#baidu').setWrite(function(){
+	document.writeln("<scri" + "pt type='text/javascript'>");
+	document.writeln("  cpro_id = 'u1766569';");
+	document.writeln("</sc"+"ript>");
+	document.writeln("<sc"+"ript src='http://cpro.baidustatic.com/cpro/ui/c.js' type='text/javascript'></s"+"cript>");
+}, 'ready');
+*/
+
+testWrite = function(event) {
+	document.querySelector('#ad').setWrite(function(){
+		document.querySelector('#ad').innerHTML = '<div>载入 init</div>';
+		document.write(document.querySelector('textarea').value);
+	}, function(error) {
+		document.querySelector('#ad').innerHTML += error ? '<div>载入错误</div>' : '<div>载入完毕</div>';
+	}, 'ready');
+	return false;
+};
+</script>
+
+
+
+						<!--<a href="http://www.lianyue.org/2012/2359/" title="梦想.." rel="bookmark"><img src="http://www.lianyue.org/wp-content/themes/lianyue_theme/image/image_post/24.jpg" alt="梦想.." class="post_thumbnail wp_thumbnail"></a>-->
+
+</body>
+</html>
